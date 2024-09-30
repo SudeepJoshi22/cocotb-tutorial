@@ -1,12 +1,14 @@
-TOPLEVEL_LANG ?= verilog
+all:
+	TOPLEVEL_LANG ?= verilog
+	PWD=$(shell pwd)
 
-PWD=$(shell pwd)
+	VERILOG_SOURCES = $(shell pwd)/../hdl/alu.sv
 
-export PYTHONPATH := $(PWD)/../model:$(PYTHONPATH)
+	MODULE = test_alu
+	TOPLEVEL = alu
 
-VERILOG_SOURCES = $(PWD)/../hdl/alu.v
+	include $(shell cocotb-config --makefiles)/Makefile.sim
+clean:
+	rm -rf sim_build/
 
-TOPLEVEL := alu
-MODULE   := test_alu
-
-include $(shell cocotb-config --makefiles)/Makefile.sim
+.PHONY: all

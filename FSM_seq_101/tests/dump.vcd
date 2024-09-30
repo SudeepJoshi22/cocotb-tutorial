@@ -1,5 +1,5 @@
 $date
-	Fri Sep 27 20:56:34 2024
+	Fri Sep 27 21:07:41 2024
 $end
 $version
 	Icarus Verilog
@@ -16,6 +16,9 @@ $var reg 1 % detected $end
 $var reg 2 & next_state [1:0] $end
 $upscope $end
 $enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
 #0
 $dumpvars
 bx &

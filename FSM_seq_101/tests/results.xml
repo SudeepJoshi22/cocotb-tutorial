@@ -1,6 +1,0 @@
-<testsuites name="results">
-  <testsuite name="all" package="all">
-    <property name="random_seed" value="1727450794" />
-    <testcase name="test_FSM" classname="test_FSM" file="/home/aryan/Documents/cocotb-tutorial/FSM_seq_101/tests/test_FSM.py" lineno="8" time="0.003925800323486328" sim_time_ns="290000.001" ratio_time="73870288.12063064" />
-  </testsuite>
-</testsuites>

@@ -1,12 +1,16 @@
-# This file is public domain, it can be freely copied without restrictions.
-# SPDX-License-Identifier: CC0-1.0
+SHELL := /bin/bash
 
+# Set variables
 TOPLEVEL_LANG ?= verilog
 PWD=$(shell pwd)
-
-VERILOG_SOURCES = $(shell pwd)/../hdl/FSM.sv
-
+VERILOG_SOURCES = $(PWD)/../hdl/FSM.sv
 MODULE = test_FSM
 TOPLEVEL = FSM
 
+# Include Cocotb Makefile for simulation (this will automatically handle the targets)
 include $(shell cocotb-config --makefiles)/Makefile.sim
+
+clean:
+	rm -rf sim_build/
+
+.PHONY: all clean

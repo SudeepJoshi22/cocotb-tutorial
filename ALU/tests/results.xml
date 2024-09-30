@@ -1,7 +1,7 @@
 <testsuites name="results">
   <testsuite name="all" package="all">
-    <property name="random_seed" value="1727195650" />
-    <testcase name="alu_basic_test" classname="test_alu" file="/home/sudeep/GitHub/cocotb-tutorial/ALU/tests/test_alu.py" lineno="27" time="0.0014197826385498047" sim_time_ns="16.001" ratio_time="11270.03497968094" />
-    <testcase name="alu_randomised_test" classname="test_alu" file="/home/sudeep/GitHub/cocotb-tutorial/ALU/tests/test_alu.py" lineno="47" time="0.0011334419250488281" sim_time_ns="20.001" ratio_time="17646.250379469922" />
+    <property name="random_seed" value="1727451387" />
+    <testcase name="alu_basic_test" classname="test_alu" file="/home/sudeep/GitHub/cocotb-tutorial/ALU/tests/test_alu.py" lineno="27" time="0.0021195411682128906" sim_time_ns="16.001" ratio_time="7549.275399775029" />
+    <testcase name="alu_randomised_test" classname="test_alu" file="/home/sudeep/GitHub/cocotb-tutorial/ALU/tests/test_alu.py" lineno="47" time="0.001725912094116211" sim_time_ns="20.001" ratio_time="11588.655104848736" />
   </testsuite>
 </testsuites>
