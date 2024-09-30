@@ -1,0 +1,8 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1727712324" />
+    <testcase name="ifc_test" classname="ifc_test" file="/home/sudeep/GitHub/cocotb-tutorial/OR_inf/tests/ifc_test.py" lineno="9" time="0.003406524658203125" sim_time_ns="17.001" ratio_time="4990.716846584547">
+      <failure message="Test failed with RANDOM_SEED=1727712324" />
+    </testcase>
+  </testsuite>
+</testsuites>

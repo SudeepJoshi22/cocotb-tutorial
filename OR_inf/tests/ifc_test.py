@@ -1,21 +1,22 @@
 import cocotb
 from cocotb.triggers import Timer, RisingEdge, ReadOnly, NextTimeStep
-from cocotb_bus.driver import BusDriver
+from cocotb_bus.drivers import BusDriver
 
 def cb_fn(actual_value):
     global expected_value
-    assert actual_value == expected_value, f"Scoreboard Matching Failed"
+    assert actual_value == expected_value.pop(0), f"Scoreboard Matching Failed"
 
 @cocotb.test()
 async def ifc_test(dut):
     a = (0,0,1,1)
     b = (0,1,0,1)
     #y = (0,1,1,1)
-   
-    expected_value = (0,1,1,1)
+    
+    global expected_value
+    expected_value = [] 
     
     dut.RST_N.value = 1
-    await.Timer(1,'ns')
+    await Timer(1,'ns')
     dut.RST_N.value = 0
     await Timer(1,'ns')
     await RisingEdge(dut.CLK)
@@ -26,8 +27,10 @@ async def ifc_test(dut):
     OutputDriver(dut,'y',dut.CLK, cb_fn) # Pass call-back function
 
     for i in range(4):
+        expected_value.append(a[i] | b[i])
         adrv.append(a[i])
         bdrv.append(b[i])
+
     while len(expected_value) > 0:
         await(Timer(2,'ns'))
 
@@ -63,10 +66,10 @@ class OutputDriver(BusDriver):
         while True:
             if self.bus.rdy.value != 0:
                 await RisingEdge(self.bus.rdy)
-            self.en.value = 1
+            self.bus.en.value = 1
             #self.bus.data = value
             self.callback(self.bus.data.value) # Whatever data is obtained, pass it out of the function
             await ReadOnly() # checking values from different always block might cause an error. So wait till the end of delta-delay cycle
             await RisingEdge(self.clk)
-            self.bus.en = 0
+            self.bus.en.value = 0
             await NextTimeStep()
