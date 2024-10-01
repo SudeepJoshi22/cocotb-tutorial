@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1727763503" />
+    <testcase name="ifc_test" classname="ifc_test" file="/home/aryan/Documents/cocotb-tutorial/ifc_or/tests/ifc_test.py" lineno="50" time="0.023343324661254883" sim_time_ns="667.001" ratio_time="28573.52196737787" />
+  </testsuite>
+</testsuites>

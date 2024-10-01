@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1727690649" />
+    <testcase name="or_test" classname="or_test" file="/home/aryan/Documents/cocotb-tutorial/or/tests/or_test.py" lineno="5" time="0.0008831024169921875" sim_time_ns="4.001" ratio_time="4530.618332613391" />
+  </testsuite>
+</testsuites>
