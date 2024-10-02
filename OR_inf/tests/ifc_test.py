@@ -1,4 +1,5 @@
 import cocotb
+import random
 from cocotb.triggers import Timer, RisingEdge, ReadOnly, NextTimeStep
 from cocotb_bus.drivers import BusDriver
 
@@ -27,7 +28,12 @@ async def ifc_test(dut):
     OutputDriver(dut,'y',dut.CLK, cb_fn) # Pass call-back function
 
     for i in range(4):
+        print(f"a:{a[i]}")
+        print(f"b:{b[i]}")
+        print(f"y:{a[i] | b[i]}")
         expected_value.append(a[i] | b[i])
+        print(f"Expected list: {expected_value}")
+        #print(f"Expected list: {expected_value.pop(0)}")
         adrv.append(a[i])
         bdrv.append(b[i])
 
@@ -42,15 +48,18 @@ class InputDriver(BusDriver):
         self.bus.en.value = 0
         self.clk = clk
     async def _driver_send(self, value, sync = True):
-        if self.bus.rdy.value != 0:
+        for i in range(random.randint(0, 20)):
+            await RisingEdge(self.clk)
+        
+        if self.bus.rdy.value != 1:
             await RisingEdge(self.bus.rdy)
-        self.en.value = 1
+        self.bus.en.value = 1
         self.bus.data.value = value
 
         await ReadOnly() # checking values from different always block might cause an error. So wait till the end of delta-delay cycle
         await RisingEdge(self.clk)
-        await NextTimeStep()
         self.bus.en.value = 0
+        await NextTimeStep()
 
 class OutputDriver(BusDriver):
     _signals = ['en', 'rdy', 'data']
@@ -64,12 +73,12 @@ class OutputDriver(BusDriver):
 
     async def _driver_send(self, value, sync = True):
         while True:
-            if self.bus.rdy.value != 0:
+            if self.bus.rdy.value != 1:
                 await RisingEdge(self.bus.rdy)
             self.bus.en.value = 1
             #self.bus.data = value
-            self.callback(self.bus.data.value) # Whatever data is obtained, pass it out of the function
             await ReadOnly() # checking values from different always block might cause an error. So wait till the end of delta-delay cycle
+            self.callback(self.bus.data.value) # Whatever data is obtained, pass it out of the function
             await RisingEdge(self.clk)
-            self.bus.en.value = 0
             await NextTimeStep()
+            self.bus.en.value = 0
