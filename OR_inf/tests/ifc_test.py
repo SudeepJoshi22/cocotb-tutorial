@@ -5,6 +5,9 @@ from cocotb_bus.drivers import BusDriver
 
 def cb_fn(actual_value):
     global expected_value
+    
+    print(f"Expected list: {expected_value}")
+    print(f"Expected list: {expected_value[0]}")
     assert actual_value == expected_value.pop(0), f"Scoreboard Matching Failed"
 
 @cocotb.test()
@@ -28,12 +31,12 @@ async def ifc_test(dut):
     OutputDriver(dut,'y',dut.CLK, cb_fn) # Pass call-back function
 
     for i in range(4):
-        print(f"a:{a[i]}")
-        print(f"b:{b[i]}")
-        print(f"y:{a[i] | b[i]}")
+#        print(f"a:{a[i]}")
+#        print(f"b:{b[i]}")
+#        print(f"y:{a[i] | b[i]}")
         expected_value.append(a[i] | b[i])
-        print(f"Expected list: {expected_value}")
         #print(f"Expected list: {expected_value.pop(0)}")
+        print("Sending a and b through Input drivers")
         adrv.append(a[i])
         bdrv.append(b[i])
 
@@ -54,6 +57,7 @@ class InputDriver(BusDriver):
         if self.bus.rdy.value != 1:
             await RisingEdge(self.bus.rdy)
         self.bus.en.value = 1
+        print(f"From Input Driver, sending the value: {value}")
         self.bus.data.value = value
 
         await ReadOnly() # checking values from different always block might cause an error. So wait till the end of delta-delay cycle
@@ -78,6 +82,7 @@ class OutputDriver(BusDriver):
             self.bus.en.value = 1
             #self.bus.data = value
             await ReadOnly() # checking values from different always block might cause an error. So wait till the end of delta-delay cycle
+            print(f"From Output Driver, got the value: {self.bus.data.value}") 
             self.callback(self.bus.data.value) # Whatever data is obtained, pass it out of the function
             await RisingEdge(self.clk)
             await NextTimeStep()

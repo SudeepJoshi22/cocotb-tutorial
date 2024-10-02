@@ -1,6 +1,6 @@
 <testsuites name="results">
   <testsuite name="all" package="all">
-    <property name="random_seed" value="1727864628" />
-    <testcase name="ifc_test" classname="ifc_test" file="/home/sudeep/GitHub/cocotb-tutorial/OR_inf/tests/ifc_test.py" lineno="10" time="0.01922750473022461" sim_time_ns="497.001" ratio_time="25848.43987679488" />
+    <property name="random_seed" value="1727865252" />
+    <testcase name="ifc_test" classname="ifc_test" file="/home/sudeep/GitHub/cocotb-tutorial/OR_inf/tests/ifc_test.py" lineno="13" time="0.02012777328491211" sim_time_ns="567.001" ratio_time="28170.080811921063" />
   </testsuite>
 </testsuites>
